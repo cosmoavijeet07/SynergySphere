@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { getTaskById, createTask, updateTask } from '../services/api';
 import './CreateTask.css';
 
 function CreateTask() {
@@ -11,6 +11,7 @@ function CreateTask() {
   const [deadline, setDeadline] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
+
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,7 +22,7 @@ function CreateTask() {
     if (id) {
       const fetchTask = async () => {
         try {
-          const response = await axios.get(`/api/tasks/${id}`);
+          const response = await getTaskById(id);
           const task = response.data;
           setName(task.name);
           setAssignee(task.assignee_id);
@@ -42,11 +43,21 @@ function CreateTask() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const taskData = {
+      name,
+      assignee_id: assignee,
+      project_id: project,
+      topic,
+      deadline,
+      image,
+      description
+    };
+
     try {
       if (id) {
-        await axios.put(`/api/tasks/${id}`, { name, assignee_id: assignee, project_id: project, topic, deadline, image, description });
+        await updateTask(id, taskData);
       } else {
-        await axios.post('/api/tasks', { name, assignee_id: assignee, project_id: project, topic, deadline, image, description });
+        await createTask(taskData);
       }
       navigate('/my-tasks');
     } catch (error) {

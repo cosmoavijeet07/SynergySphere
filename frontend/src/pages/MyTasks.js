@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { getTasks } from '../services/api';
 import TaskCard from '../components/TaskCard';
 import './MyTasks.css';
 
@@ -9,12 +9,13 @@ function MyTasks() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('/api/tasks');
+        const response = await getTasks();
         setTasks(response.data);
       } catch (error) {
         console.error('Error fetching tasks:', error);
       }
     };
+
     fetchTasks();
   }, []);
 
@@ -32,4 +33,4 @@ function MyTasks() {
   );
 }
 
-export default MyTasks; 
+export default MyTasks;

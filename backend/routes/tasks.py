@@ -3,12 +3,13 @@ from models.models import get_all_tasks, create_task, get_task_by_id, update_tas
 
 tasks_bp = Blueprint('tasks', __name__)
 
-@tasks_bp.route('/api/tasks', methods=['GET'])
+@tasks_bp.route('/tasks', methods=['GET'])
 def get_tasks():
     tasks = get_all_tasks()
-    return jsonify(tasks), 200
+    tasks_list = [dict(task) for task in tasks]
+    return jsonify(tasks_list), 200
 
-@tasks_bp.route('/api/tasks', methods=['POST'])
+@tasks_bp.route('/tasks', methods=['POST'])
 def add_task():
     data = request.get_json()
     name = data.get('name')
@@ -26,14 +27,14 @@ def add_task():
     create_task(name, assignee_id, project_id, topic, deadline, status, image, description)
     return jsonify({'message': 'Task created successfully'}), 201
 
-@tasks_bp.route('/api/tasks/<int:task_id>', methods=['GET'])
+@tasks_bp.route('/tasks/<int:task_id>', methods=['GET'])
 def get_task(task_id):
     task = get_task_by_id(task_id)
     if not task:
         return jsonify({'error': 'Task not found'}), 404
     return jsonify(task), 200
 
-@tasks_bp.route('/api/tasks/<int:task_id>', methods=['PUT'])
+@tasks_bp.route('/tasks/<int:task_id>', methods=['PUT'])
 def edit_task(task_id):
     data = request.get_json()
     name = data.get('name')

@@ -19,7 +19,8 @@ function ProjectDetails() {
         
         // Fetch project details
         const projectResponse = await getProjectById(id);
-        setProject(projectResponse.data);
+        console.log(projectResponse);
+        setProject(projectResponse.data[0]);
         
         // Fetch tasks for this project
         const tasksResponse = await getTasks();
