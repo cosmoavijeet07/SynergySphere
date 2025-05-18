@@ -20,10 +20,10 @@ function MainLayout() {
         setIsSidebarOpen={setIsSidebarOpen}
       />
       <div className="content-wrapper">
-        {/* <Sidebar 
+        <Sidebar 
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
-        /> */}
+        />
         <main className="main-content">
           <Outlet />
         </main>

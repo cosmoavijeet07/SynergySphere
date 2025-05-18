@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import './CreateTask.css';
 
 function CreateTask() {
   const [name, setName] = useState('');
@@ -54,18 +55,20 @@ function CreateTask() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="create-task">
       <h2>{id ? 'Edit Task' : 'Create Task'}</h2>
-      <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-      <input type="text" placeholder="Assignee ID" value={assignee} onChange={(e) => setAssignee(e.target.value)} required />
-      <input type="text" placeholder="Project ID" value={project} onChange={(e) => setProject(e.target.value)} required />
-      <input type="text" placeholder="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} />
-      <input type="date" placeholder="Deadline" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
-      <input type="text" placeholder="Image URL" value={image} onChange={(e) => setImage(e.target.value)} />
-      <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-      <button type="submit">{id ? 'Update Task' : 'Create Task'}</button>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
+        <input type="text" placeholder="Assignee ID" value={assignee} onChange={(e) => setAssignee(e.target.value)} required />
+        <input type="text" placeholder="Project ID" value={project} onChange={(e) => setProject(e.target.value)} required />
+        <input type="text" placeholder="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} />
+        <input type="date" placeholder="Deadline" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
+        <input type="text" placeholder="Image URL" value={image} onChange={(e) => setImage(e.target.value)} />
+        <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+        <button type="submit">{id ? 'Update Task' : 'Create Task'}</button>
+      </form>
+    </div>
   );
 }
 
-export default CreateTask; 
+export default CreateTask;

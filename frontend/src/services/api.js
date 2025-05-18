@@ -82,7 +82,7 @@ export const updateProject = (id, projectData) => api.put(`/projects/${id}`, pro
 
 // -------------------- TASKS ------------------------
 
-export const getTasks = () => api.get('/tasks');
+export const getTasks = () => api.get('/api/tasks');
 export const getTaskById = (id) => api.get(`/tasks/${id}`);
 export const createTask = (taskData) => api.post('/tasks', taskData);
 export const updateTask = (id, taskData) => api.put(`/tasks/${id}`, taskData);
