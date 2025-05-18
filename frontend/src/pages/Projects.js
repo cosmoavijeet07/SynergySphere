@@ -1,28 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { getProjects } from '../services/api'; // Import the API function
 import ProjectCard from '../components/ProjectCard';
 import './Projects.css';
 
 function Projects() {
   const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('/api/projects');
+        setLoading(true);
+        const response = await getProjects(); // Use the imported API function
         setProjects(response.data);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
+      } catch (err) {
+        console.error('Error fetching projects:', err);
+        setError('Failed to load projects. Please try again.');
+      } finally {
+        setLoading(false);
       }
     };
+    
     fetchProjects();
   }, []);
 
   const handleAddProject = () => {
     navigate('/projects/new');
   };
+
+  if (loading) {
+    return <div className="loading">Loading projects...</div>;
+  }
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
 
   return (
     <div className="projects-page">
@@ -33,9 +48,13 @@ function Projects() {
         </button>
       </div>
       <div className="projects-grid">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
+        {projects.length > 0 ? (
+          projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))
+        ) : (
+          <p>No projects found. Create your first project!</p>
+        )}
       </div>
     </div>
   );

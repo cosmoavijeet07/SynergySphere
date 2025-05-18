@@ -6,7 +6,8 @@ projects_bp = Blueprint('projects', __name__)
 @projects_bp.route('/projects', methods=['GET'])
 def get_projects():
     projects = get_all_projects()
-    return jsonify(projects), 200
+    projects_list = [dict(project) for project in projects]
+    return jsonify(projects_list), 200
 
 @projects_bp.route('/projects', methods=['POST'])
 def add_project():
