@@ -46,4 +46,13 @@ def login():
         return jsonify({'error': 'Invalid email or password'}), 401
 
     token = generate_token(user['id'])
-    return jsonify({'token': token}), 200 
+    
+    # Return both token AND user data
+    return jsonify({
+        'token': token,
+        'user': {
+            'id': user['id'],
+            'name': user['name'],
+            'email': user['email']
+        }
+    }), 200

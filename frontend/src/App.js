@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -10,18 +10,25 @@ import CreateTask from './pages/CreateTask';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 
-// Layout for authenticated pages
 function MainLayout() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <>
-      <Navbar />
-      <div className="main-content">
-        <Sidebar />
-        <div className="content">
+    <div className="app-layout">
+      <Navbar 
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
+      <div className="content-wrapper">
+        {/* <Sidebar 
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        /> */}
+        <main className="main-content">
           <Outlet />
-        </div>
+        </main>
       </div>
-    </>
+    </div>
   );
 }
 

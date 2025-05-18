@@ -27,11 +27,13 @@ function Projects() {
   return (
     <div className="projects-page">
       <div className="projects-header">
-        <h2>Projects</h2>
-        <button className="add-project-btn" onClick={handleAddProject}>+ Add Project</button>
+        <h2 className="projects-title">Projects</h2>
+        <button className="add-project-btn" onClick={handleAddProject}>
+          + Add Project
+        </button>
       </div>
       <div className="projects-grid">
-        {projects.map(project => (
+        {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
@@ -39,4 +41,4 @@ function Projects() {
   );
 }
 
-export default Projects; 
+export default Projects;
