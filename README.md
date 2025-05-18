@@ -85,11 +85,10 @@ SynergySphere/
 * Python
 * FastAPI
 * SQLAlchemy
-* PostgreSQL (or SQLite for dev)
+* SQLite
 
 **Others:**
 
-* Docker & Docker Compose
 * JWT for auth
 * WebSockets for real-time updates (planned)
 
