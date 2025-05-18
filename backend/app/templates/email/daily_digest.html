@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Daily Digest</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #4a6fa5; color: white; padding: 10px; text-align: center; }
+        .section { margin-bottom: 20px; }
+        .section-title { font-weight: bold; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        .task { margin-bottom: 10px; padding: 8px; background-color: #f9f9f9; }
+        .task-title { font-weight: bold; }
+        .task-due { color: #d9534f; }
+        .notification { margin-bottom: 10px; padding: 8px; background-color: #f0f7ff; }
+        .footer { margin-top: 20px; font-size: 0.8em; color: #777; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>SynergySphere Daily Digest</h2>
+            <p>{{ now.strftime('%A, %B %d, %Y') }}</p>
+        </div>
+        
+        <p>Hello {{ user.name }},</p>
+        
+        <div class="section">
+            <div class="section-title">Today's Tasks</div>
+            {% if tasks_due_today %}
+                {% for task in tasks_due_today %}
+                <div class="task">
+                    <div class="task-title">{{ task.title }}</div>
+                    <div class="task-project">Project: {{ task.project.name }}</div>
+                    <div class="task-due">Due: {{ task.due_date.strftime('%I:%M %p') }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No tasks due today. Great job!</p>
+            {% endif %}
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Upcoming Deadlines (Next 3 Days)</div>
+            {% if upcoming_tasks %}
+                {% for task in upcoming_tasks %}
+                <div class="task">
+                    <div class="task-title">{{ task.title }}</div>
+                    <div class="task-project">Project: {{ task.project.name }}</div>
+                    <div class="task-due">Due: {{ task.due_date.strftime('%a, %b %d') }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No upcoming deadlines in the next 3 days.</p>
+            {% endif %}
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Recent Notifications</div>
+            {% if recent_notifications %}
+                {% for notification in recent_notifications %}
+                <div class="notification">
+                    {{ notification.content }}
+                    <div class="notification-time">{{ notification.created_at.strftime('%I:%M %p') }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No new notifications.</p>
+            {% endif %}
+        </div>
+        
+        <div class="footer">
+            <p><a href="{{ app_link }}">Go to SynergySphere</a></p>
+            <p>© {% now 'Y' %} SynergySphere. All rights reserved.</p>
+            <p><a href="{{ preferences_link }}">Manage your email preferences</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Task Reminder</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #4a6fa5; color: white; padding: 10px; text-align: center; }
+        .task { margin-bottom: 15px; padding: 10px; border-left: 4px solid #4a6fa5; }
+        .task-title { font-weight: bold; }
+        .task-due { color: #d9534f; }
+        .footer { margin-top: 20px; font-size: 0.8em; color: #777; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>SynergySphere Daily Task Reminder</h2>
+        </div>
+        
+        <p>Hello {{ user.name }},</p>
+        <p>Here are your tasks due today or overdue:</p>
+        
+        {% for task in tasks %}
+        <div class="task">
+            <div class="task-title">{{ task.title }}</div>
+            <div class="task-project">Project: {{ task.project.name }}</div>
+            <div class="task-due">Due: {{ task.due_date.strftime('%b %d, %Y %I:%M %p') }}</div>
+            <div class="task-status">Status: {{ task.status|replace('_', ' ')|title }}</div>
+        </div>
+        {% endfor %}
+        
+        <p>Log in to SynergySphere to update your tasks.</p>
+        
+        <div class="footer">
+            <p>This is an automated message. Please do not reply directly to this email.</p>
+                    <p>You received this email because you have pending tasks in SynergySphere.</p>
+        <p>If you believe this is a mistake, please update your task status in the system.</p>
+        
+        <div class="footer">
+            <p>© {% now 'Y' %} SynergySphere. All rights reserved.</p>
+            <p><a href="{{ unsubscribe_link }}">Unsubscribe from these reminders</a></p>
+        </div>
+    </div>
+</body>
+</html>
