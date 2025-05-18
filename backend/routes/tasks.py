@@ -32,7 +32,8 @@ def get_task(task_id):
     task = get_task_by_id(task_id)
     if not task:
         return jsonify({'error': 'Task not found'}), 404
-    return jsonify(task), 200
+    
+    return jsonify(dict(task)), 200
 
 @tasks_bp.route('/tasks/<int:task_id>', methods=['PUT'])
 def edit_task(task_id):

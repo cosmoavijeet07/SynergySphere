@@ -24,13 +24,14 @@ function CreateTask() {
         try {
           const response = await getTaskById(id);
           const task = response.data;
-          setName(task.name);
-          setAssignee(task.assignee_id);
-          setProject(task.project_id);
-          setTopic(task.topic);
-          setDeadline(task.deadline);
-          setImage(task.image);
-          setDescription(task.description);
+
+          setName(task.name || '');
+          setAssignee(task.assignee_id?.toString() || '');
+          setProject(task.project_id?.toString() || '');
+          setTopic(task.topic || '');
+          setDeadline(task.deadline ? task.deadline.slice(0, 10) : '');
+          setImage(task.image || '');
+          setDescription(task.description || '');
         } catch (error) {
           console.error('Error fetching task:', error);
         }
@@ -69,13 +70,49 @@ function CreateTask() {
     <div className="create-task">
       <h2>{id ? 'Edit Task' : 'Create Task'}</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-        <input type="text" placeholder="Assignee ID" value={assignee} onChange={(e) => setAssignee(e.target.value)} required />
-        <input type="text" placeholder="Project ID" value={project} onChange={(e) => setProject(e.target.value)} required />
-        <input type="text" placeholder="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} />
-        <input type="date" placeholder="Deadline" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
-        <input type="text" placeholder="Image URL" value={image} onChange={(e) => setImage(e.target.value)} />
-        <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Assignee ID"
+          value={assignee}
+          onChange={(e) => setAssignee(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Project ID"
+          value={project}
+          onChange={(e) => setProject(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Topic"
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+        />
+        <input
+          type="date"
+          value={deadline}
+          onChange={(e) => setDeadline(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Image URL"
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+        />
+        <textarea
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
         <button type="submit">{id ? 'Update Task' : 'Create Task'}</button>
       </form>
     </div>
