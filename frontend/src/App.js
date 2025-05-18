@@ -9,6 +9,7 @@ import CreateProject from './pages/CreateProject';
 import CreateTask from './pages/CreateTask';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import Profile from './pages/Profile';
 
 function MainLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -51,6 +52,7 @@ function App() {
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
         {/* Protected pages */}
         <Route element={<PrivateRoute><MainLayout /></PrivateRoute>}>

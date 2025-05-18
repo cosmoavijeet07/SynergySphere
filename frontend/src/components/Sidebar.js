@@ -36,16 +36,27 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
       >
         ×
       </button>
-      <div className="user-info">
+      {/* <div className="user-info">
         <div className="user-avatar large">{firstChar}</div>
         <h3>{user.name}</h3>
         <p>{user.email}</p>
         {user.fallback && (
           <small className="login-prompt">Please log in properly</small>
         )}
-      </div>
+      </div> */}
       
       <nav className="sidebar-links">
+        {user && (
+          <div className="sidebar-profile">
+            <Link to="/profile" className="profile-link">
+              <div className="profile-avatar">{user.name?.charAt(0).toUpperCase()}</div>
+              <div className="profile-info">
+                <span className="profile-name">{user.name}</span><br></br>
+                <span className="profile-email">{user.email}</span>
+              </div>
+            </Link>
+          </div>
+        )}
         <Link to="/projects" className={isActive('/projects')} onClick={() => setIsSidebarOpen(false)}>
           <i className="icon">📋</i>
           Projects

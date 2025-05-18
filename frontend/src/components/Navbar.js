@@ -35,10 +35,14 @@ function Navbar({ isSidebarOpen, setIsSidebarOpen }) {
           <Link to="/projects">Projects</Link>
           <Link to="/my-tasks">My Tasks</Link>
           <div className="user-menu">
-            <div className="user-info">
+            {/* <div className="user-info">
               <span className="user-avatar">{user?.name?.charAt(0)}</span>
               <span className="user-email">{user?.email}</span>
-            </div>
+            </div> */}
+            <Link to="/profile" className="profile-link">
+              <div className="profile-avatar">{user?.name?.charAt(0).toUpperCase()}</div>
+              <span className="profile-name">{user?.name}</span>
+            </Link>
             <button className="logout-btn" onClick={handleLogout}>Logout</button>
           </div>
         </div>
