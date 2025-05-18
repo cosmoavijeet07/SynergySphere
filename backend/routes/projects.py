@@ -56,7 +56,8 @@ def get_project(project_id):
     project = get_project_by_id(project_id)
     if not project:
         return jsonify({'error': 'Project not found'}), 404
-    return jsonify(project), 200
+    projectd = [dict(project)]
+    return jsonify(projectd), 200
 
 @projects_bp.route('/projects/<int:project_id>', methods=['PUT'])
 def edit_project(project_id):
