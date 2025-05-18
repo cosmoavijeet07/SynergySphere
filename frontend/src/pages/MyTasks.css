@@ -1,0 +1,36 @@
+.mytasks-page {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.mytasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.mytasks-header h2 {
+  font-size: 2rem;
+  color: #222;
+  font-weight: 700;
+}
+
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 700px) {
+  .mytasks-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .tasks-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+} 
