@@ -1,16 +1,24 @@
 .navbar {
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 1rem 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
+
 .navbar-content.container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  max-width: none; /* prevent unexpected container behavior */
+  padding: 0;
 }
 
 .logo {
@@ -18,7 +26,9 @@
   font-size: 1.5rem;
   color: #1976d2;
   text-decoration: none;
+  margin-right: 2rem;
 }
+
 
 .menu-toggle {
   display: none;
@@ -59,11 +69,47 @@
   gap: 1rem;
 }
 
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #333;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.profile-link:hover {
+  background-color: rgba(25, 118, 210, 0.1);
+}
+
+.profile-avatar {
+  width: 32px;
+  height: 32px;
+  background: #1976d2;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.profile-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
 .user-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  border-bottom: none;
+  padding-bottom: none;
+  margin-bottom: none;
 }
+
 
 .user-avatar {
   background-color: #1976d2;
@@ -80,6 +126,11 @@
 .user-email {
   font-size: 0.9rem;
   color: #555;
+  border: none;
+  text-decoration: none;
+  line-height: 1;
+  display: flex;
+  align-items: center;
 }
 
 .logout-btn {
@@ -127,5 +178,35 @@
   .user-menu {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-right: 1rem;
+  display: none; /* Hide by default on desktop */
+}
+
+.sidebar-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    display: block;
+  }
+  
+  .sidebar-close {
+    display: block;
   }
 }

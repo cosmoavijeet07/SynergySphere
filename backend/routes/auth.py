@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 auth_bp = Blueprint('auth', __name__)
 
-@auth_bp.route('/api/signup', methods=['POST'])
+@auth_bp.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
     name = data.get('name')
@@ -29,7 +29,7 @@ def signup():
     create_user(name, email, password)
     return jsonify({'message': 'User registered successfully'}), 201
 
-@auth_bp.route('/api/login', methods=['POST'])
+@auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
     email = data.get('email')
@@ -46,4 +46,13 @@ def login():
         return jsonify({'error': 'Invalid email or password'}), 401
 
     token = generate_token(user['id'])
-    return jsonify({'token': token}), 200 
+    
+    # Return both token AND user data
+    return jsonify({
+        'token': token,
+        'user': {
+            'id': user['id'],
+            'name': user['name'],
+            'email': user['email']
+        }
+    }), 200

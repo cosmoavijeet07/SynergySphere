@@ -16,12 +16,10 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await loginUser(email, password);
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      await loginUser(email, password);
       navigate('/projects');
     } catch (error) {
-      setError(error.response?.data?.message || 'An error occurred during login');
+      setError(error.message);
     } finally {
       setLoading(false);
     }

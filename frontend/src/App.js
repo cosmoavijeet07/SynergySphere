@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -9,19 +9,27 @@ import CreateProject from './pages/CreateProject';
 import CreateTask from './pages/CreateTask';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import Profile from './pages/Profile';
 
-// Layout for authenticated pages
 function MainLayout() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <>
-      <Navbar />
-      <div className="main-content">
-        <Sidebar />
-        <div className="content">
+    <div className="app-layout">
+      <Navbar 
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
+      <div className="content-wrapper">
+        <Sidebar 
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+        <main className="main-content">
           <Outlet />
-        </div>
+        </main>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -44,6 +52,7 @@ function App() {
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
         {/* Protected pages */}
         <Route element={<PrivateRoute><MainLayout /></PrivateRoute>}>

@@ -21,14 +21,41 @@ api.interceptors.request.use((config) => {
  * @returns {Promise<{token: string, user: object}>}
  */
 export const loginUser = async (email, password) => {
-  const response = await api.post('/login', { email, password });
+  try {
+    const response = await api.post('/login', { email, password });
+    
+    // Validate response structure
+    if (!response.data?.token || !response.data?.user?.id || !response.data?.user?.email) {
+      throw new Error('Invalid server response structure');
+    }
 
-  // Save auth data to localStorage
-  const { token, user } = response.data;
-  localStorage.setItem('token', token);
-  localStorage.setItem('user', JSON.stringify(user));
-  
-  return response;
+    // Create normalized auth data
+    const authData = {
+      token: response.data.token,
+      user: {
+        id: response.data.user.id,
+        name: response.data.user.name || email.split('@')[0] || 'User',
+        email: response.data.user.email
+      }
+    };
+
+    // Store auth data
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', JSON.stringify(authData.user));
+    
+    return authData;
+  } catch (error) {
+    // Clear any partial auth data on failure
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+    // Enhance error message for debugging
+    const errorMessage = error.response?.data?.message || 
+                        error.message || 
+                        'Login failed. Please try again.';
+    
+    throw new Error(errorMessage);
+  }
 };
 
 /**
