@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_mail import Mail
-from config import config
+from SynergySphere.backend.config import config
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -26,7 +26,7 @@ def create_app(config_name='default'):
     
     # Import models before initializing security
     from app.models import User, Role
-    from app.models.user import user_datastore
+    from app.models import user_datastore
     
     # Initialize Flask-Security
     security.init_app(app, user_datastore)
