@@ -1,0 +1,20 @@
+# requirements.txt
+Flask
+Flask-SQLAlchemy
+Flask-Security-Too
+Flask-WTF
+Flask-Migrate
+Flask-CORS
+Flask-RESTful
+Flask-JWT-Extended
+Flask-Mail
+WTForms
+Werkzeug
+SQLAlchemy
+psycopg2-binary
+python-dotenv
+bcrypt
+marshmallow
+marshmallow-sqlalchemy
+validate-email
+python-dateutil
